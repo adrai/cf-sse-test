@@ -34,8 +34,10 @@ restService.get('/event', sse(), function (req, res) {
   });
 
   res.json("this is an event");
+  console.log('send message...');
   setInterval(function() {
     res.json({here: "is", another: "event", number: ++counter});
+    console.log('send message... ' + counter);
   }, 1000);
 });
 
