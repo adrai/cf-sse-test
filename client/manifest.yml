@@ -1,6 +1,6 @@
 ---
 applications:
-- name: sse-client
+- name: test-sse-client
   buildpack: https://github.com/cloudfoundry/heroku-buildpack-nodejs
   memory: 64M
   instances: 1

@@ -2,6 +2,10 @@ var EventSource = require('eventsource');
 
 var serverUrl = 'http://localhost:8080';
 
+if (process.env.PORT) {
+  serverUrl = 'http://test-sse-server.beta.scapp.io';
+}
+
 var auth = false;
 
 var es = new EventSource(serverUrl + '/event', {
