@@ -27,18 +27,21 @@ if (auth) {
 }
 
 restService.get('/event', sse(), function (req, res) {
+  var pidClient = parseInt(req.header('X-PID'), 10);
+
   var counter = 0;
 
-  req.on('close', function() {
-    console.log('closed connection');
-  });
-
   res.json("this is an event");
-  console.log('send message...');
-  setInterval(function() {
-    res.json({here: "is", another: "event", number: ++counter});
-    console.log('send message... ' + counter);
+  console.log('send message... to ' + pidClient);
+  var inter = setInterval(function() {
+    res.json({here: "is", another: "event", number: ++counter, yourPid: pidClient});
+    console.log('send message... to ' + pidClient + ' | ' + counter);
   }, 1000);
+
+  req.on('close', function() {
+    console.log('closed connection of ' + pidClient);
+    clearInterval(inter);
+  });
 });
 
 restService.listen(process.env.PORT || 8080, function () {

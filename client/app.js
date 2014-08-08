@@ -1,4 +1,5 @@
-var EventSource = require('eventsource');
+var EventSource = require('eventsource'),
+    assert = require('assert');
 
 var serverUrl = 'http://localhost:8080';
 
@@ -10,11 +11,22 @@ var auth = false;
 
 var es = new EventSource(serverUrl + '/event', {
   headers: {
+    'X-PID': process.pid,
     'authorization': auth ? 'Basic ' + new Buffer('user'+ ':' + 'password').toString('base64') : undefined
   }
 });
 es.onmessage = function(e) {
-  console.log(e.data);
+  console.log(process.pid, e.data);
+  try {
+    var json = JSON.parse(e.data);
+    if (json.yourPid) {
+      try {
+        assert.equal(json.yourPid, process.pid);
+      } catch(err) {
+        console.log('!!!!!scalability missmatch!!!!!!');
+      }
+    }
+  } catch(err) {}
   // es.close();
 };
 es.onerror = function() {
