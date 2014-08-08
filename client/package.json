@@ -1,0 +1,13 @@
+{
+  "author": "adrai",
+  "name": "sse-test",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./app.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "eventsource": "^0.1.2"
+  }
+}
