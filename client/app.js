@@ -7,21 +7,23 @@ if (process.env.PORT) {
   serverUrl = 'http://test-sse-server.beta.scapp.io';
 }
 
+var workerId = Math.floor(Math.random()*10000);
+
 var auth = false;
 
 var es = new EventSource(serverUrl + '/event', {
   headers: {
-    'X-PID': process.pid,
+    'X-WorkerId': workerId,
     'authorization': auth ? 'Basic ' + new Buffer('user'+ ':' + 'password').toString('base64') : undefined
   }
 });
 es.onmessage = function(e) {
-  console.log(process.pid, e.data);
+  console.log(workerId, e.data);
   try {
     var json = JSON.parse(e.data);
-    if (json.yourPid) {
+    if (json.workerId) {
       try {
-        assert.equal(json.yourPid, process.pid);
+        assert.equal(json.yourPid, workerId);
       } catch(err) {
         console.log('!!!!!scalability missmatch!!!!!!');
       }

@@ -27,19 +27,19 @@ if (auth) {
 }
 
 restService.get('/event', sse(), function (req, res) {
-  var pidClient = parseInt(req.header('X-PID'), 10);
+  var workerId = parseInt(req.header('X-WorkerId'), 10);
 
   var counter = 0;
 
   res.json("this is an event");
-  console.log('send message... to ' + pidClient);
+  console.log('send message... to ' + workerId);
   var inter = setInterval(function() {
-    res.json({here: "is", another: "event", number: ++counter, yourPid: pidClient});
-    console.log('send message... to ' + pidClient + ' | ' + counter);
+    res.json({here: "is", another: "event", number: ++counter, workerId: workerId});
+    console.log('send message... to ' + workerId + ' | ' + counter);
   }, 1000);
 
   req.on('close', function() {
-    console.log('closed connection of ' + pidClient);
+    console.log('closed connection of ' + workerId);
     clearInterval(inter);
   });
 });
