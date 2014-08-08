@@ -16,8 +16,8 @@ var auth = false;
 if (auth) {
   passport.use(new BasicStrategy(
     function(username, password, done) {
-      done(null, username === options.credentials.username &&
-                 password === options.credentials.password);
+      done(null, username === 'user' &&
+                 password === 'password');
     }
   ));
 
