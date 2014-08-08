@@ -23,7 +23,7 @@ es.onmessage = function(e) {
     var json = JSON.parse(e.data);
     if (json.workerId) {
       try {
-        assert.equal(json.yourPid, workerId);
+        assert.equal(json.workerId, workerId);
       } catch(err) {
         console.log('!!!!!scalability missmatch!!!!!!');
       }
