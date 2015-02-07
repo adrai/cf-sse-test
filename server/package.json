@@ -8,7 +8,7 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "connect-sse": "^1.0.5",
+    "connect-sse": "^1.0.6",
     "passport": "^0.2.0",
     "passport-http": "^0.2.2",
     "restify": "^2.8.2"
